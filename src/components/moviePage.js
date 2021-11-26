@@ -42,6 +42,7 @@ const MoviePage = (...props) => {
     <div className="flex flex-col justify-center items-center mt-10 mr-96">
       <div className="text-7xl">{id}</div>
       <div>{summary}</div>
+      <div>hi</div>
       <div className="flex flex-row">
         <img className="w-56 h-96 rounded-xl m-10" src={moviePic} alt="" />
         <RateBar
