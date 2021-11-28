@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import { updateDoc } from "firebase/firestore";
 
 const RateBar = (props) => {
   const [Slider, setSlider] = useState(1);
-  const { rating, setRating, id } = props;
-  const [numberOfRatings, setNumberOfRatings] = useState(0);
+  const { rating, setRating, id, forUpdate } = props;
+  const [numberOfRatings, setNumberOfRatings] = useState(1);
 
   const [average, setAverage] = useState(-1);
+  useEffect(() => {
+    setAverage(parseInt(rating));
+  }, [rating]);
 
   return (
     <div>
@@ -15,6 +19,7 @@ const RateBar = (props) => {
         <div>{average}</div>
       </div>
       <div>Rate this movie</div>
+
       <input
         type="range"
         step="1"

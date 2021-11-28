@@ -2,8 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import ReactLoading from "react-loading";
-import MoviePage from "./moviePage";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 const getAllMovies = async () => {
   const moviesColRef = collection(db, "movies");
   const moviesSnapshot = await getDocs(moviesColRef);

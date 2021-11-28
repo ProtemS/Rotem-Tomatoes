@@ -10,12 +10,14 @@ import { collection, where, doc, getDocs, query } from "firebase/firestore";
 const MoviePage = (...props) => {
   const [rating, setRating] = useState(0);
   const [summary, setSummary] = useState("");
+  const [forUpdate, setForUpdate] = useState();
   const { id } = useParams();
   const movieData = [];
   const getMovieInfo = async () => {
     const ColRef = collection(db, "movies");
     const q = query(ColRef, where("name", "==", `${id}`));
     const querySnapshot = await getDocs(q);
+    setForUpdate(querySnapshot[0]);
     querySnapshot.forEach((doc) => {
       movieData.push(doc.data());
     });
@@ -23,8 +25,10 @@ const MoviePage = (...props) => {
   };
   useEffect(() => {
     getMovieInfo().then((data) => {
-      setRating(data.rating);
-      setSummary(data.summary);
+      if (data != null) {
+        setRating(data.rating);
+        setSummary(data.summary);
+      }
     });
   }, []);
   const [moviePic, setmoviePic] = useState(() => {
@@ -41,8 +45,7 @@ const MoviePage = (...props) => {
   return (
     <div className="flex flex-col justify-center items-center mt-10 mr-96">
       <div className="text-7xl">{id}</div>
-      <div>{summary}</div>
-      <div>hi</div>
+      <div>{summary} </div>
       <div className="flex flex-row">
         <img className="w-56 h-96 rounded-xl m-10" src={moviePic} alt="" />
         <RateBar
