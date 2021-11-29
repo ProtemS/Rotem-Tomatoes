@@ -8,7 +8,7 @@ const getAllMovies = async () => {
   const moviesSnapshot = await getDocs(moviesColRef);
   const movies = [];
   moviesSnapshot.forEach((doc) => {
-    movies.push(doc.data());
+    movies.push({ ...doc.data(), id: doc.id });
   });
   return movies;
 };
@@ -43,8 +43,9 @@ const MovieSelect = () => {
           <button onClick={getAllMovies}>hi</button>
           {movies.map((movie, i) => (
             <Link
+              key={i}
               to={{
-                pathname: `/movies/${movie.name}`,
+                pathname: `/movies/${movie.id}`,
               }}
             >
               <div>{movie.name}</div>

@@ -1,41 +1,63 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Dorito from "../dorito.png";
 import Yair from "../dwawadwadwa.jpg";
 import Question from "../question.jpg";
 import RateBar from "./rateBar";
 import { db } from "../firebase";
-import { collection, where, doc, getDocs, query } from "firebase/firestore";
+import {
+  collection,
+  where,
+  getDocs,
+  query,
+  limit,
+  setDoc,
+} from "firebase/firestore";
 
-const MoviePage = (...props) => {
-  const [rating, setRating] = useState(0);
-  const [summary, setSummary] = useState("");
-  const [forUpdate, setForUpdate] = useState();
+const MoviePage = ({ ...props }) => {
   const { id } = useParams();
-  const movieData = [];
-  const getMovieInfo = async () => {
+  const [rating, setRating] = useState(-1);
+  const [movieData, setMovieData] = useState(null);
+  const [dbRef, setDbRef] = useState(null);
+  const [numberOfRatings, setNumberOfRatings] = useState(-1);
+
+  const getMovieData = useCallback(async () => {
     const ColRef = collection(db, "movies");
-    const q = query(ColRef, where("name", "==", `${id}`));
+    const q = query(ColRef, where("__name__", "==", `${id}`), limit(1));
     const querySnapshot = await getDocs(q);
-    setForUpdate(querySnapshot[0]);
-    querySnapshot.forEach((doc) => {
-      movieData.push(doc.data());
+
+    setDbRef(querySnapshot.docs[0].ref);
+    setMovieData({
+      ...querySnapshot.docs[0].data(),
+      id: querySnapshot.docs[0].id,
     });
-    return movieData[0];
-  };
+  }, [id]);
+
   useEffect(() => {
-    getMovieInfo().then((data) => {
-      if (data != null) {
-        setRating(data.rating);
-        setSummary(data.summary);
-      }
-    });
-  }, []);
-  const [moviePic, setmoviePic] = useState(() => {
+    if (movieData) {
+      setRating(movieData.rating);
+      setNumberOfRatings(movieData.numberOfRatings);
+    }
+  }, [movieData]);
+
+  useEffect(() => {
+    getMovieData();
+  }, [getMovieData]);
+
+  useEffect(() => {
+    if (rating != -1) setDoc(dbRef, { rating }, { merge: true });
+  }, [rating]);
+
+  useEffect(() => {
+    if (numberOfRatings != -1)
+      setDoc(dbRef, { numberOfRatings }, { merge: true });
+  }, [numberOfRatings]);
+
+  const [moviePic] = useState(() => {
     switch (id) {
-      case "Dorito":
+      case "nKToJpPHfBAEz1ZLbm5S":
         return Dorito;
-      case "Marillmon":
+      case "w4Ta08qIh3BNMGzTRGaE":
         return Yair;
       default:
         return Question;
@@ -44,17 +66,21 @@ const MoviePage = (...props) => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-10 mr-96">
-      <div className="text-7xl">{id}</div>
-      <div>{summary} </div>
-      <div className="flex flex-row">
-        <img className="w-56 h-96 rounded-xl m-10" src={moviePic} alt="" />
-        <RateBar
-          rating={rating}
-          setRating={setRating}
-          name={id}
-          className="m-20"
-        />
-      </div>
+      {movieData && (
+        <>
+          <div className="text-7xl">{movieData.name}</div>
+          <div>{movieData.summary} </div>
+          <div className="flex flex-row">
+            <img className="w-56 h-96 rounded-xl m-10" src={moviePic} alt="" />
+            {rating !== -1 && (
+              <RateBar
+                className="m-20"
+                {...{ rating, setRating, numberOfRatings, setNumberOfRatings }}
+              />
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

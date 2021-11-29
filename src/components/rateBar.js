@@ -1,47 +1,39 @@
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { updateDoc } from "firebase/firestore";
 
 const RateBar = (props) => {
-  const [Slider, setSlider] = useState(1);
-  const { rating, setRating, id, forUpdate } = props;
-  const [numberOfRatings, setNumberOfRatings] = useState(1);
+  const [currentRating, setCurrentRating] = useState(0);
 
-  const [average, setAverage] = useState(-1);
-  useEffect(() => {
-    setAverage(parseInt(rating));
-  }, [rating]);
+  const { rating, setRating, numberOfRatings, setNumberOfRatings } = props;
 
   return (
     <div>
       <div>
-        <div>Rotem Tomatoes Rating</div>
-        <div>{average}</div>
+        <div>Rotem Tomatoes Rating: {rating}</div>
       </div>
-      <div>Rate this movie</div>
+      <div className="pt-4">Rate this movie</div>
 
       <input
         type="range"
-        step="1"
         onChange={(e) => {
-          setSlider(e.target.value);
+          setCurrentRating(parseInt(e.target.value));
         }}
         max="10"
         min="1"
-        defaultValue="1"
+        value={currentRating}
       />
-      <div>{Slider}</div>
-      <button
-        onClick={() => {
-          setAverage(
-            (average * numberOfRatings + parseInt(Slider)) /
-              (numberOfRatings + 1)
-          );
-          setNumberOfRatings(numberOfRatings + 1);
-        }}
-      >
-        Confirm
-      </button>
+      <div>{currentRating ? currentRating : "Choose your rating"}</div>
+      {currentRating !== 0 && (
+        <button
+          onClick={() => {
+            setRating(
+              (rating * numberOfRatings + currentRating) / (numberOfRatings + 1)
+            );
+            setNumberOfRatings(numberOfRatings + 1);
+          }}
+        >
+          Confirm
+        </button>
+      )}
     </div>
   );
 };

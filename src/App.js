@@ -2,7 +2,6 @@ import "./App.css";
 import MovieSelect from "./components/movieSelect";
 import { Routes, Route } from "react-router-dom";
 import MoviePage from "./components/moviePage";
-import app, { db } from "./firebase";
 
 function App() {
   return (
