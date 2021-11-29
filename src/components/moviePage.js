@@ -17,9 +17,9 @@ import {
 const MoviePage = ({ ...props }) => {
   const { id } = useParams();
   const [rating, setRating] = useState(-1);
+  const [numberOfRatings, setNumberOfRatings] = useState(-1);
   const [movieData, setMovieData] = useState(null);
   const [dbRef, setDbRef] = useState(null);
-  const [numberOfRatings, setNumberOfRatings] = useState(-1);
 
   const getMovieData = useCallback(async () => {
     const ColRef = collection(db, "movies");
@@ -72,12 +72,19 @@ const MoviePage = ({ ...props }) => {
           <div>{movieData.summary} </div>
           <div className="flex flex-row">
             <img className="w-56 h-96 rounded-xl m-10" src={moviePic} alt="" />
-            {rating !== -1 && (
-              <RateBar
-                className="m-20"
-                {...{ rating, setRating, numberOfRatings, setNumberOfRatings }}
-              />
-            )}
+            {rating !== -1 &&
+              numberOfRatings !==
+                -1(
+                  <RateBar
+                    className="m-20"
+                    {...{
+                      rating,
+                      setRating,
+                      numberOfRatings,
+                      setNumberOfRatings,
+                    }}
+                  />
+                )}
           </div>
         </>
       )}
