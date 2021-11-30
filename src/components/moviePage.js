@@ -13,6 +13,7 @@ import {
   limit,
   setDoc,
 } from "firebase/firestore";
+import Stars from "./stars";
 
 const MoviePage = ({ ...props }) => {
   const { id } = useParams();
@@ -65,18 +66,26 @@ const MoviePage = ({ ...props }) => {
   });
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-purple-100 min-w-screen min-h-screen m-0">
-      <div className="flex flex-col justify-center items-center mt-10 mr-96">
+    <div className="bg-gradient-to-r from-blue-600 to-purple-100 w-screen h-screen justify-center  flex">
+      <img className="w-56 h-96 rounded-xl mr-52 mt-24" src={moviePic} alt="" />
+      <div className="justify-center items-center mt-0  ">
         {movieData && (
           <>
-            <div className="text-7xl">{movieData.name}</div>
-            <div>{movieData.summary} </div>
+            <div className="mt-24 flex flex-col justify-center items-center">
+              <div className="text-7xl p-2">{movieData.name}</div>
+              <Stars starLength={Math.floor(rating / 2)}></Stars>
+              <div>
+                <div className="p-2">
+                  Rotem Tomatoes Rating: {Math.round(rating / 0.5) * 0.5}
+                </div>
+                <div>Number of ratings : {numberOfRatings}</div>
+              </div>
+            </div>
+            <div className="mt-52">
+              <div>Movie Summary</div>
+              <div>{movieData.summary} </div>
+            </div>
             <div className="flex flex-row">
-              <img
-                className="w-56 h-96 rounded-xl m-10"
-                src={moviePic}
-                alt=""
-              />
               {rating !== -1 && numberOfRatings !== -1 ? (
                 <RateBar
                   className="m-20"

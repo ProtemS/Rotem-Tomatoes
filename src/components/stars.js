@@ -16,7 +16,7 @@ const Stars = (props) => {
 
   return (
     <div>
-      <div className="flex flex-row ">{arr}</div>
+      <div className="flex flex-row  ">{arr}</div>
     </div>
   );
 };
