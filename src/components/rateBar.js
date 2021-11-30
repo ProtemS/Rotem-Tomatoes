@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
+import Stars from "./stars";
 
 const RateBar = (props) => {
   const [currentRating, setCurrentRating] = useState(0);
 
   const { rating, setRating, numberOfRatings, setNumberOfRatings } = props;
+  const starLength = Math.ceil(rating / 2);
 
   return (
     <div>
       <div>
         <div>Rotem Tomatoes Rating: {rating}</div>
+        <Stars starLength={starLength}></Stars>
+        <div>Number of ratings : {numberOfRatings}</div>
       </div>
       <div className="pt-4">Rate this movie</div>
 

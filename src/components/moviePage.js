@@ -65,29 +65,35 @@ const MoviePage = ({ ...props }) => {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center mt-10 mr-96">
-      {movieData && (
-        <>
-          <div className="text-7xl">{movieData.name}</div>
-          <div>{movieData.summary} </div>
-          <div className="flex flex-row">
-            <img className="w-56 h-96 rounded-xl m-10" src={moviePic} alt="" />
-            {rating !== -1 &&
-              numberOfRatings !==
-                -1(
-                  <RateBar
-                    className="m-20"
-                    {...{
-                      rating,
-                      setRating,
-                      numberOfRatings,
-                      setNumberOfRatings,
-                    }}
-                  />
-                )}
-          </div>
-        </>
-      )}
+    <div className="bg-gradient-to-r from-blue-600 to-purple-100 min-w-screen min-h-screen m-0">
+      <div className="flex flex-col justify-center items-center mt-10 mr-96">
+        {movieData && (
+          <>
+            <div className="text-7xl">{movieData.name}</div>
+            <div>{movieData.summary} </div>
+            <div className="flex flex-row">
+              <img
+                className="w-56 h-96 rounded-xl m-10"
+                src={moviePic}
+                alt=""
+              />
+              {rating !== -1 && numberOfRatings !== -1 ? (
+                <RateBar
+                  className="m-20"
+                  {...{
+                    rating,
+                    setRating,
+                    numberOfRatings,
+                    setNumberOfRatings,
+                  }}
+                />
+              ) : (
+                console.log("hi")
+              )}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
