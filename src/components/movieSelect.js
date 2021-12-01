@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
 import Stars from "./stars";
+import MovieNav from "./movieNav";
 const getAllMovies = async () => {
   const moviesColRef = collection(db, "movies");
   const moviesSnapshot = await getDocs(moviesColRef);
@@ -40,29 +41,32 @@ const MovieSelect = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col relative top-10 bg-yellow-100 h-screen  align-middle">
-          <button onClick={getAllMovies}>Quality Design</button>
-          {movies.map((movie, i) => (
-            <div>
-              <Link
-                key={i}
-                to={{
-                  pathname: `/movies/${movie.id}`,
-                }}
-              >
-                <div className="inline-block">
-                  <div>{movie.name}</div>
-                  <div className="flex flex-row">
-                    {movie.rating !== -1 && movie.numberOfRatings !== -1 ? (
-                      <Stars starLength={Math.floor(movie.rating / 2)}></Stars>
-                    ) : (
-                      console.log("hi")
-                    )}
+        <div className="bg-red-50 h-screen ">
+          <div className="flex flex-row   align-middle">
+            {movies.map((movie, i) => (
+              <div>
+                <Link
+                  key={i}
+                  to={{
+                    pathname: `/movies/${movie.id}`,
+                  }}
+                >
+                  <div className="inline-block">
+                    <div>{movie.name}</div>
+                    <div className="flex flex-row">
+                      {movie.rating !== -1 && movie.numberOfRatings !== -1 ? (
+                        <Stars
+                          starLength={Math.floor(movie.rating / 2)}
+                        ></Stars>
+                      ) : (
+                        console.log("hi")
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>

@@ -67,7 +67,7 @@ const MoviePage = ({ ...props }) => {
 
   return (
     <main className="min-h-screen flex justify-center items-center">
-      <div className="flex bg-gray-50 rounded-2xl shadow-lg p-14 relative">
+      <div className="flex bg-gray-200 rounded-2xl shadow-lg p-14 relative">
         <div className="flex flex-col mr-7">
           {movieData && (
             <>
