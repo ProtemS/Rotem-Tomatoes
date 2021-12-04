@@ -22,6 +22,7 @@ const MoviePage = ({ ...props }) => {
   const [movieData, setMovieData] = useState(null);
   const [dbRef, setDbRef] = useState(null);
 
+  const [moviePic, setMoviePic] = useState(null);
   const getMovieData = useCallback(async () => {
     const ColRef = collection(db, "movies");
     const q = query(ColRef, where("__name__", "==", `${id}`), limit(1));
@@ -38,6 +39,7 @@ const MoviePage = ({ ...props }) => {
     if (movieData) {
       setRating(movieData.rating);
       setNumberOfRatings(movieData.numberOfRatings);
+      setMoviePic(movieData.image);
     }
   }, [movieData]);
 
@@ -53,17 +55,6 @@ const MoviePage = ({ ...props }) => {
     if (numberOfRatings != -1)
       setDoc(dbRef, { numberOfRatings }, { merge: true });
   }, [numberOfRatings]);
-
-  const [moviePic] = useState(() => {
-    switch (id) {
-      case "nKToJpPHfBAEz1ZLbm5S":
-        return Dorito;
-      case "w4Ta08qIh3BNMGzTRGaE":
-        return Yair;
-      default:
-        return Question;
-    }
-  });
 
   return (
     <main className="min-h-screen flex justify-center items-center">
