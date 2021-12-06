@@ -34,15 +34,15 @@ const MovieSelect = () => {
   return (
     <>
       {!done ? (
-        <div className="flex justify-center align-middle flex-col">
+        <div className="flex justify-center align-middle flex-col min-w-0">
           <div className="text-center text-7xl">Loading</div>
           <div className="flex align-middle justify-center">
             <ReactLoading type="spin" color="black" width={500} height={500} />
           </div>
         </div>
       ) : (
-        <div className="bg-red-50 h-screen ">
-          <div className="flex flex-row   align-middle">
+        <div className="bg-red-50 h-screen mx-3">
+          <div className="flex flex-row   align-middle gap-x-6 flex-wrap gap-y-4">
             {movies.map((movie, i) => (
               <div>
                 <Link
@@ -51,8 +51,8 @@ const MovieSelect = () => {
                     pathname: `/movies/${movie.id}`,
                   }}
                 >
-                  <div className="inline-block">
-                    <div>{movie.name}</div>
+                  <div className="bg-gray-300 rounded-lg h-80 max-w-lg flex flex-col items-center">
+                    <div className="text-5xl p-2">{movie.name}</div>
                     <div className="flex flex-row">
                       {movie.rating !== -1 && movie.numberOfRatings !== -1 ? (
                         <Stars
@@ -62,6 +62,11 @@ const MovieSelect = () => {
                         console.log("hi")
                       )}
                     </div>
+                    <img
+                      src={movie.image}
+                      alt=""
+                      className="max-w-xs max-h-44 p-3 pb-5 "
+                    ></img>
                   </div>
                 </Link>
               </div>
