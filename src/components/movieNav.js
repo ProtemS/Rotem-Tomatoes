@@ -1,5 +1,5 @@
 import { FireIcon } from "@heroicons/react/solid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import AddNew from "./addNew";
 

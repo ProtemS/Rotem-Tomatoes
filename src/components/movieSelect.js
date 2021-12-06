@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
 import Stars from "./stars";
-import MovieNav from "./movieNav";
+
 const getAllMovies = async () => {
   const moviesColRef = collection(db, "movies");
   const moviesSnapshot = await getDocs(moviesColRef);

@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import Dorito from "../dorito.png";
-import Yair from "../dwawadwadwa.jpg";
-import Question from "../question.jpg";
 import RateBar from "./rateBar";
 import { db } from "../firebase";
 import {
@@ -51,13 +48,13 @@ const MoviePage = ({ ...props }) => {
   }, [getMovieData]);
 
   useEffect(() => {
-    if (rating != -1) setDoc(dbRef, { rating }, { merge: true });
-  }, [rating]);
+    if (rating !== -1) setDoc(dbRef, { rating }, { merge: true });
+  }, [rating, dbRef]);
 
   useEffect(() => {
-    if (numberOfRatings != -1)
+    if (numberOfRatings !== -1)
       setDoc(dbRef, { numberOfRatings }, { merge: true });
-  }, [numberOfRatings]);
+  }, [numberOfRatings, dbRef]);
 
   return (
     <main className="min-h-screen flex justify-center items-center">

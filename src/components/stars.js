@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import Question from "../question.jpg";
 import { StarIcon } from "@heroicons/react/solid";
 
 const Stars = ({ starLength, ...props }) => {

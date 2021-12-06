@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const RateBar = (props) => {
   const [currentRating, setCurrentRating] = useState(0);

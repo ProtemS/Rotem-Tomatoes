@@ -3,7 +3,6 @@ import MovieSelect from "./components/movieSelect";
 import { Routes, Route } from "react-router-dom";
 import MoviePage from "./components/moviePage";
 import MovieNav from "./components/movieNav";
-import { useState } from "react";
 
 function App() {
   return (

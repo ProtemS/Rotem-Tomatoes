@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Dialog, Transition } from "@headlessui/react";
