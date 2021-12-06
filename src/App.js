@@ -7,9 +7,9 @@ import { useState } from "react";
 
 function App() {
   return (
-    <div className="App flex flex-col min-h-screen min-w-0">
-      <MovieNav></MovieNav>
-      <main className="flex-1 min-w-0">
+    <div className="App flex flex-col h-screen">
+      <MovieNav />
+      <main className="flex-1 overflow-auto scrollbar-thin scrollbar-thumb-red-400">
         <Routes>
           <Route exact path="/" element={<MovieSelect currentRoute="hi" />} />
           <Route path="/movies/:id" element={<MoviePage />} />

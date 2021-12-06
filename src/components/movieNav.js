@@ -11,7 +11,7 @@ const MovieNav = (props) => {
 
   return (
     <div>
-      <div className="flex flex-row space-x-10 justify-center h-16 items-center bg-gray-50 min-w-0">
+      <div className="flex flex-row space-x-10 justify-center h-16 items-center bg-gray-50 shadow-md sticky">
         <div className="flex flex-row">
           <span className="text-3xl font-semibold">Rotem Tomatoes</span>
           <span>
@@ -29,7 +29,6 @@ const MovieNav = (props) => {
         <div onClick={Toggle} className="cursor-pointer">
           Add Movie!
         </div>
-        <div className="">By RotemS</div>
       </div>
       {modal ? <AddNew setModal={setModal} modal={modal}></AddNew> : null}
     </div>

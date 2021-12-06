@@ -60,16 +60,16 @@ const MoviePage = ({ ...props }) => {
   }, [numberOfRatings]);
 
   return (
-    <main className="min-h-screen flex justify-center items-center min-w-0 ">
+    <main className="min-h-screen flex justify-center items-center">
       {exists ? (
-        <div className="flex bg-gray-200 rounded-2xl shadow-lg p-14 relative min-w-0">
-          <div className="flex flex-col mr-7 min-w-0">
+        <div className="flex bg-gray-200 rounded-2xl shadow-lg p-14 relative">
+          <div className="flex flex-col mr-7">
             {movieData && (
               <>
-                <div className="text-6xl font-semibold text-gray-900 truncate min-w-0 ">
+                <div className="text-6xl font-semibold text-gray-900 w-96">
                   {movieData.name}
                 </div>
-                <div className="flex-1 mt-10 min-w-0 w-96">
+                <div className="flex-1 mt-10 w-96">
                   <div className="text-xl">Movie Summary:</div>
                   <div className="mt-2 w-96">{movieData.summary}</div>
                 </div>
@@ -90,7 +90,11 @@ const MoviePage = ({ ...props }) => {
             )}
           </div>
           <div className="flex flex-col justify-between items-center">
-            {isShown && <div className="absolute">{rating}</div>}
+            {isShown && (
+              <div className="absolute">
+                Rating: <span className="font-bold">{rating.toFixed(2)}</span>
+              </div>
+            )}
             <div
               className="flex flex-col mt-7 bg-gray-100 shadow-lg rounded-lg p-4"
               onMouseEnter={() => setIsShown(true)}
